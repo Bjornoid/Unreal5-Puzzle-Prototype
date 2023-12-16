@@ -30,22 +30,27 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerMappingContext = NewObject<UInputMappingContext>(this);
 
-	//Set Input Actions
+	//Set W to MoveForward
 	MoveForwardAction = NewObject<UInputAction>(this);
 	MoveForwardAction->ValueType = EInputActionValueType::Axis1D;
 	PlayerMappingContext->MapKey(MoveForwardAction, EKeys::W);
+ //Set S to Negate MoveForward(Backward)
 	FEnhancedActionKeyMapping& SMapping = PlayerMappingContext->MapKey(MoveForwardAction, EKeys::S);
 	UInputModifierNegate* SNegate = NewObject<UInputModifierNegate>(this);
 	SMapping.Modifiers.Add(SNegate);
+ //Set D to MoveRight
 	MoveRightAction = NewObject<UInputAction>(this);
 	MoveRightAction->ValueType = EInputActionValueType::Axis1D;
 	PlayerMappingContext->MapKey(MoveRightAction, EKeys::D);
+ //Set A to Negate MoveRight(Left)
 	FEnhancedActionKeyMapping& AMapping = PlayerMappingContext->MapKey(MoveRightAction, EKeys::A);
 	UInputModifierNegate* ANegate = NewObject<UInputModifierNegate>(this);
 	AMapping.Modifiers.Add(ANegate);
+ //Set Mouse X to Turning Left/Right
 	TurnToAction = NewObject<UInputAction>(this);
 	TurnToAction->ValueType = EInputActionValueType::Axis1D;
 	PlayerMappingContext->MapKey(TurnToAction, EKeys::MouseX);
+ //Set Negate of Mouse Y to LookUp
 	LookUpAction = NewObject<UInputAction>(this);
 	LookUpAction->ValueType = EInputActionValueType::Axis1D;
 	FEnhancedActionKeyMapping& YMapping = PlayerMappingContext->MapKey(LookUpAction, EKeys::MouseY);
